@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:klinik_app/model/admin.dart';
-import 'package:klinik_app/ui/admin/admin_detail.dart';
+import '/model/admin.dart';
+import '/ui/admin/admin_detail.dart';
 
 class AdminForm extends StatefulWidget {
   const AdminForm({super.key});
