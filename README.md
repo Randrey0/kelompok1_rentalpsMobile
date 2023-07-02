@@ -1,4 +1,4 @@
-# Klinik App
+# RentalPS App
 
 This is a mobile application for managing a clinic built with Flutter. The application is designed to make it easier for clinic staff to manage patient appointments, medical records, and billing.
 
@@ -11,7 +11,7 @@ This is a mobile application for managing a clinic built with Flutter. The appli
 
 ## Features
 
-The Klinik App comes with the following features:
+The Rental PS App comes with the following features:
 
 - User authentication (login and logout)
 - Patient registration

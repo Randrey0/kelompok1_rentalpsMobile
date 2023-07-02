@@ -18,7 +18,7 @@ class Sidebar extends StatelessWidget {
             accountName: Text("Admin"),
             accountEmail: Text("Admin@gmail.com"),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage('assets/img/background.jpg'),
+              backgroundImage: AssetImage('assets/img/profile.jpg'),
             ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
