@@ -17,7 +17,15 @@ class _ConsoleFormState extends State<ConsoleForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Tambah Console")),
+      appBar: AppBar(
+        title: const Text("Tambah Console"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+          )),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -46,7 +54,7 @@ class _ConsoleFormState extends State<ConsoleForm> {
 
   _fieldHargaSewa() {
     return TextField(
-      decoration: const InputDecoration(labelText: "Harga Sewa"),
+      decoration: const InputDecoration(labelText: "Harga Sewa / Minggu"),
       controller: _hargaSewaCtrl,
     );
   }

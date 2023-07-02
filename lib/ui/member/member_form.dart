@@ -19,7 +19,15 @@ class _MemberFormState extends State<MemberForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Tambah Member")),
+      appBar: AppBar(
+        title: const Text("Tambah Member"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+          )),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,

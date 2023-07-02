@@ -5,13 +5,24 @@ import '/ui/member/member_page.dart';
 import '/ui/admin/admin_page.dart';
 
 class Beranda extends StatelessWidget {
-  const Beranda({super.key});
+  const Beranda({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Sidebar(),
-      appBar: AppBar(title: Text("Beranda")),
+      appBar: AppBar(
+        title: Text("Beranda"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+      ),
       body: GridView.count(
         padding: const EdgeInsets.all(25),
         crossAxisCount: 2,

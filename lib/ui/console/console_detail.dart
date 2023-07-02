@@ -20,7 +20,15 @@ class _ConsoleDetailState extends State<ConsoleDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Detail Console")),
+      appBar: AppBar(
+        title: Text("Detail Console"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+          )),
+        ),
+      ),
       body: StreamBuilder(
         stream: getData(),
         builder: (context, AsyncSnapshot snapshot) {
@@ -45,7 +53,7 @@ class _ConsoleDetailState extends State<ConsoleDetail> {
               ),
               SizedBox(height: 20),
               Text(
-                "Harga Sewa : ${snapshot.data.hargaSewa}",
+                "Harga Sewa / Minggu : ${snapshot.data.hargaSewa}",
                 style: TextStyle(fontSize: 20),
               ),
               SizedBox(height: 20),

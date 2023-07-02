@@ -22,6 +22,12 @@ class _ConsolePageState extends State<ConsolePage> {
       drawer: Sidebar(),
       appBar: AppBar(
         title: const Text("Data Console"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+          )),
+        ),
       ),
       body: StreamBuilder(
         stream: getList(),

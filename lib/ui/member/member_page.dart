@@ -22,6 +22,12 @@ class _MemberPageState extends State<MemberPage> {
       drawer: Sidebar(),
       appBar: AppBar(
         title: const Text("Data Member"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+          )),
+        ),
       ),
       body: StreamBuilder(
         stream: getList(),

@@ -17,6 +17,12 @@ class _AdminDetailWidgetState extends State<AdminDetailWidget> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detail Admin"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+          )),
+        ),
       ),
       body: Column(
         children: [

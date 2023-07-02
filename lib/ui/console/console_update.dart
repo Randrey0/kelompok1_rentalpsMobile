@@ -64,7 +64,7 @@ class _ConsoleUpdateFormState extends State<ConsoleUpdateForm> {
 
   _fieldHargaSewa() {
     return TextField(
-      decoration: const InputDecoration(labelText: "Harga Sewa"),
+      decoration: const InputDecoration(labelText: "Harga Sewa / Minggu"),
       controller: _hargaSewaCtrl,
     );
   }

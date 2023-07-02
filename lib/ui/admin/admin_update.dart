@@ -33,6 +33,12 @@ class _AdminUpdateState extends State<AdminUpdate> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Form Update Admin"),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+            )),
+          ),
         ),
         body: Container(
             margin: const EdgeInsets.only(left: 25, right: 25),

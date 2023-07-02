@@ -20,7 +20,15 @@ class _MemberDetailState extends State<MemberDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Detail Member")),
+      appBar: AppBar(
+        title: Text("Detail Member"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+          )),
+        ),
+      ),
       body: StreamBuilder(
         stream: getData(),
         builder: (context, AsyncSnapshot snapshot) {
