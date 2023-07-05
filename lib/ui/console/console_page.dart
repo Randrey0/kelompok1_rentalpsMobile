@@ -24,39 +24,50 @@ class _ConsolePageState extends State<ConsolePage> {
         title: const Text("Data Console"),
         flexibleSpace: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-            colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
-          )),
+            gradient: LinearGradient(
+              colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+            ),
+          ),
         ),
       ),
-      body: StreamBuilder(
-        stream: getList(),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          }
-          if (snapshot.connectionState != ConnectionState.done) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (!snapshot.hasData &&
-              snapshot.connectionState == ConnectionState.done) {
-            return Text('Data Kosong');
-          }
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/img/background.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: StreamBuilder(
+          stream: getList(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            }
+            if (snapshot.connectionState != ConnectionState.done) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (!snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.done) {
+              return Text('Data Kosong');
+            }
 
-          return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              return ConsoleItem(console: snapshot.data[index]);
-            },
-          );
-        },
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return ConsoleItem(console: snapshot.data[index]);
+              },
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ConsoleForm()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ConsoleForm()),
+          );
         },
         child: const Icon(Icons.add),
       ),
