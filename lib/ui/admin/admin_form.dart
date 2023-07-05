@@ -3,7 +3,7 @@ import '/model/admin.dart';
 import '/ui/admin/admin_detail.dart';
 
 class AdminForm extends StatefulWidget {
-  const AdminForm({super.key});
+  const AdminForm({Key? key}) : super(key: key);
 
   @override
   State<AdminForm> createState() => _AdminFormState();
@@ -18,79 +18,140 @@ class _AdminFormState extends State<AdminForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/img/background.jpg"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: const Text("Form Tambah Admin"),
           flexibleSpace: Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-              colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
-            )),
+              gradient: LinearGradient(
+                colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+              ),
+            ),
           ),
         ),
-        body: Container(
-            margin: const EdgeInsets.only(left: 25, right: 25),
-            child: SingleChildScrollView(
-              child: Form(
-                key: _keyForm,
-                child: Column(
-                  children: [
-                    _namaTextfield(),
-                    _alamatTextfield(),
-                    _noTelpTextfield(),
-                    _emailTextfield(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    _tombolSimpan()
-                  ],
-                ),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _keyForm,
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  _namaTextfield(),
+                  const SizedBox(height: 20),
+                  _alamatTextfield(),
+                  const SizedBox(height: 20),
+                  _noTelpTextfield(),
+                  const SizedBox(height: 20),
+                  _emailTextfield(),
+                  const SizedBox(height: 20),
+                  _tombolSimpan(),
+                  const SizedBox(height: 20),
+                ],
               ),
-            )));
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
-  _namaTextfield() {
-    return TextField(
-      decoration: InputDecoration(labelText: "Nama"),
+  Widget _namaTextfield() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: "Nama",
+        fillColor: Colors.white,
+        filled: true,
+      ),
       controller: _namaTextboxCtr,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Mohon masukkan nama';
+        }
+        return null;
+      },
     );
   }
 
-  _alamatTextfield() {
-    return TextField(
-      decoration: InputDecoration(labelText: "Alamat"),
+  Widget _alamatTextfield() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: "Alamat",
+        fillColor: Colors.white,
+        filled: true,
+      ),
       controller: _alamatTextboxCtr,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Mohon masukkan alamat';
+        }
+        return null;
+      },
     );
   }
 
-  _noTelpTextfield() {
-    return TextField(
-      decoration: InputDecoration(labelText: "No Telpon"),
+  Widget _noTelpTextfield() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: "No Telpon",
+        fillColor: Colors.white,
+        filled: true,
+      ),
       controller: _noTelpTextboxCtr,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Mohon masukkan nomor telepon';
+        }
+        return null;
+      },
     );
   }
 
-  _emailTextfield() {
-    return TextField(
-      decoration: InputDecoration(labelText: "Email"),
+  Widget _emailTextfield() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: "Email",
+        fillColor: Colors.white,
+        filled: true,
+      ),
       controller: _emailTextboxCtr,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Mohon masukkan email';
+        }
+        return null;
+      },
     );
   }
 
-  _tombolSimpan() {
+  Widget _tombolSimpan() {
     return ElevatedButton(
-        onPressed: () {
+      onPressed: () {
+        if (_keyForm.currentState!.validate()) {
           Admin admin = Admin(
-              nama: _namaTextboxCtr.text,
-              alamat: _alamatTextboxCtr.text,
-              noTelp: _noTelpTextboxCtr.text,
-              email: _emailTextboxCtr.text);
+            nama: _namaTextboxCtr.text,
+            alamat: _alamatTextboxCtr.text,
+            noTelp: _noTelpTextboxCtr.text,
+            email: _emailTextboxCtr.text,
+          );
 
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AdminDetailWidget(admin: admin)));
-        },
-        child: const Text("Simpan"));
+            context,
+            MaterialPageRoute(
+              builder: (context) => AdminDetailWidget(admin: admin),
+            ),
+          );
+        }
+      },
+      child: const Text("Simpan"),
+    );
   }
 }

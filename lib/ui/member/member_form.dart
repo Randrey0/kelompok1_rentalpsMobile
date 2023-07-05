@@ -5,6 +5,8 @@ import '/ui/member/member_page.dart';
 
 class MemberForm extends StatefulWidget {
   const MemberForm({Key? key}) : super(key: key);
+
+  @override
   _MemberFormState createState() => _MemberFormState();
 }
 
@@ -18,88 +20,157 @@ class _MemberFormState extends State<MemberForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Tambah Member"),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
-          )),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/img/background.jpg"),
+          fit: BoxFit.cover,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              _fieldNoMember(),
-              SizedBox(height: 20),
-              _fieldNamaMember(),
-              SizedBox(height: 20),
-              _fieldAlamat(),
-              SizedBox(height: 20),
-              _fieldEmail(),
-              SizedBox(height: 20),
-              _fieldNoTelp(),
-              SizedBox(height: 20),
-              _tombolSimpan()
-            ],
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: const Text("Tambah Member"),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+              ),
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  _fieldNoMember(),
+                  const SizedBox(height: 20),
+                  _fieldNamaMember(),
+                  const SizedBox(height: 20),
+                  _fieldAlamat(),
+                  const SizedBox(height: 20),
+                  _fieldEmail(),
+                  const SizedBox(height: 20),
+                  _fieldNoTelp(),
+                  const SizedBox(height: 20),
+                  _tombolSimpan(),
+                ],
+              ),
+            ),
           ),
         ),
       ),
     );
   }
 
-  _fieldNoMember() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Nomer Member"),
+  Widget _fieldNoMember() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: "Nomer Member",
+        fillColor: Colors.white,
+        filled: true,
+      ),
       controller: _noMemberCtrl,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Mohon masukkan nomor member';
+        }
+        return null;
+      },
     );
   }
 
-  _fieldNamaMember() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Nama Member"),
+  Widget _fieldNamaMember() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: "Nama Member",
+        fillColor: Colors.white,
+        filled: true,
+      ),
       controller: _namaMemberCtrl,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Mohon masukkan nama member';
+        }
+        return null;
+      },
     );
   }
 
-  _fieldAlamat() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Alamat"),
+  Widget _fieldAlamat() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: "Alamat",
+        fillColor: Colors.white,
+        filled: true,
+      ),
       controller: _alamatCtrl,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Mohon masukkan alamat';
+        }
+        return null;
+      },
     );
   }
 
-  _fieldEmail() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Email"),
+  Widget _fieldEmail() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: "Email",
+        fillColor: Colors.white,
+        filled: true,
+      ),
       controller: _emailCtrl,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Mohon masukkan email';
+        }
+        return null;
+      },
     );
   }
 
-  _fieldNoTelp() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Nomer Telp"),
+  Widget _fieldNoTelp() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: "Nomer Telp",
+        fillColor: Colors.white,
+        filled: true,
+      ),
       controller: _noTelpCtrl,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Mohon masukkan nomor telepon';
+        }
+        return null;
+      },
     );
   }
 
-  _tombolSimpan() {
+  Widget _tombolSimpan() {
     return ElevatedButton(
-        onPressed: () async {
-          Member member = new Member(
-              noMember: _noMemberCtrl.text,
-              namaMember: _namaMemberCtrl.text,
-              alamat: _alamatCtrl.text,
-              email: _emailCtrl.text,
-              noTelp: _noTelpCtrl.text);
+      onPressed: () async {
+        if (_formKey.currentState!.validate()) {
+          Member member = Member(
+            noMember: _noMemberCtrl.text,
+            namaMember: _namaMemberCtrl.text,
+            alamat: _alamatCtrl.text,
+            email: _emailCtrl.text,
+            noTelp: _noTelpCtrl.text,
+          );
           await MemberService().simpan(member).then((value) {
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => MemberPage()));
+              context,
+              MaterialPageRoute(builder: (context) => MemberPage()),
+            );
           });
-        },
-        child: const Text("Simpan"));
+        }
+      },
+      child: const Text("Simpan"),
+    );
   }
 }

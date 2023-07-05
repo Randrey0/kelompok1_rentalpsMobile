@@ -24,7 +24,7 @@ class ConsoleItem extends StatelessWidget {
           ),
           child: ListTile(
             title: Text(
-              "${console.namaConsole} | Stok : ${console.stok}",
+              "🎮 ${console.namaConsole} | Stok : ${console.stok} | Harga : Rp.${console.hargaSewa} ",
               style: TextStyle(color: Colors.white),
             ),
           ),

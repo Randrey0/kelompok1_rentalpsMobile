@@ -4,10 +4,10 @@ import '/ui/admin/admin_detail.dart';
 
 class AdminUpdate extends StatefulWidget {
   final Admin admin;
-  const AdminUpdate({super.key, required this.admin});
+  const AdminUpdate({Key? key, required this.admin}) : super(key: key);
 
   @override
-  State<AdminUpdate> createState() => _AdminUpdateState();
+  _AdminUpdateState createState() => _AdminUpdateState();
 }
 
 class _AdminUpdateState extends State<AdminUpdate> {
@@ -20,89 +20,121 @@ class _AdminUpdateState extends State<AdminUpdate> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _namaTextboxCtr.text = widget.admin.nama;
-      _alamatTextboxCtr.text = widget.admin.alamat;
-      _noTelpTextboxCtr.text = widget.admin.noTelp;
-      _emailTextboxCtr.text = widget.admin.email;
-    });
+    _namaTextboxCtr.text = widget.admin.nama;
+    _alamatTextboxCtr.text = widget.admin.alamat;
+    _noTelpTextboxCtr.text = widget.admin.noTelp;
+    _emailTextboxCtr.text = widget.admin.email;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/img/background.jpg"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: const Text("Form Update Admin"),
+          title: const Text("Form Ubah Data Admin"),
           flexibleSpace: Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-              colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
-            )),
+              gradient: LinearGradient(
+                colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+              ),
+            ),
           ),
         ),
         body: Container(
-            margin: const EdgeInsets.only(left: 25, right: 25),
-            child: SingleChildScrollView(
-              child: Form(
-                key: _keyForm,
-                child: Column(
-                  children: [
-                    _namaTextfield(),
-                    _alamatTextfield(),
-                    _noTelpTextfield(),
-                    _emailTextfield(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    _tombolSimpan()
-                  ],
-                ),
+          margin: const EdgeInsets.only(left: 25, right: 25),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _keyForm,
+              child: Column(
+                children: [
+                  _buildTextField(
+                    label: "Nama",
+                    controller: _namaTextboxCtr,
+                  ),
+                  _buildTextField(
+                    label: "Alamat",
+                    controller: _alamatTextboxCtr,
+                  ),
+                  _buildTextField(
+                    label: "No Telpon",
+                    controller: _noTelpTextboxCtr,
+                  ),
+                  _buildTextField(
+                    label: "Email",
+                    controller: _emailTextboxCtr,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  _buildSimpanButton(),
+                ],
               ),
-            )));
-  }
-
-  _namaTextfield() {
-    return TextField(
-      decoration: InputDecoration(labelText: "Nama"),
-      controller: _namaTextboxCtr,
+            ),
+          ),
+        ),
+      ),
     );
   }
 
-  _alamatTextfield() {
-    return TextField(
-      decoration: InputDecoration(labelText: "Alamat"),
-      controller: _alamatTextboxCtr,
+  Widget _buildTextField(
+      {required String label, required TextEditingController controller}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: const TextStyle(color: Colors.white),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          filled: true,
+          fillColor: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+        ),
+        controller: controller,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Mohon masukkan $label';
+          }
+          return null;
+        },
+        style: const TextStyle(color: Colors.white),
+      ),
     );
   }
 
-  _noTelpTextfield() {
-    return TextField(
-      decoration: InputDecoration(labelText: "No Telpon"),
-      controller: _noTelpTextboxCtr,
-    );
-  }
-
-  _emailTextfield() {
-    return TextField(
-      decoration: InputDecoration(labelText: "Email"),
-      controller: _emailTextboxCtr,
-    );
-  }
-
-  _tombolSimpan() {
+  Widget _buildSimpanButton() {
     return ElevatedButton(
-        onPressed: () {
+      onPressed: () {
+        if (_keyForm.currentState!.validate()) {
           Admin admin = Admin(
-              nama: _namaTextboxCtr.text,
-              alamat: _alamatTextboxCtr.text,
-              noTelp: _noTelpTextboxCtr.text,
-              email: _emailTextboxCtr.text);
+            nama: _namaTextboxCtr.text,
+            alamat: _alamatTextboxCtr.text,
+            noTelp: _noTelpTextboxCtr.text,
+            email: _emailTextboxCtr.text,
+          );
 
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AdminDetailWidget(admin: admin)));
-        },
-        child: const Text("Simpan"));
+            context,
+            MaterialPageRoute(
+              builder: (context) => AdminDetailWidget(admin: admin),
+            ),
+          );
+        }
+      },
+      child: const Text("Simpan"),
+    );
   }
 }

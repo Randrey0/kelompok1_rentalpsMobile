@@ -24,7 +24,7 @@ class MemberItem extends StatelessWidget {
           ),
           child: ListTile(
             title: Text(
-              "${member.noMember} ${member.namaMember}",
+              "👑 ${member.noMember} ${member.namaMember}",
               style: TextStyle(color: Colors.white),
             ),
           ),

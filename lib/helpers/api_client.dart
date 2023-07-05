@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 
 final Dio dio = Dio(BaseOptions(
     baseUrl: 'https://64968e6883d4c69925a2e183.mockapi.io/',
-    connectTimeout: 0,
-    receiveTimeout: 0));
+    connectTimeout: 5000,
+    receiveTimeout: 3000));
 
 class ApiClient {
   Future<Response> get(String path) async {

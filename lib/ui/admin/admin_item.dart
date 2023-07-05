@@ -24,7 +24,7 @@ class AdminItem extends StatelessWidget {
           ),
           child: ListTile(
             title: Text(
-              "${admin.nama}",
+              "🔐 ${admin.nama} | Nomer Telp: ${admin.noTelp}",
               style: TextStyle(color: Colors.white),
             ),
           ),

@@ -8,6 +8,8 @@ class MemberUpdateForm extends StatefulWidget {
   final Member member;
 
   const MemberUpdateForm({Key? key, required this.member}) : super(key: key);
+
+  @override
   _MemberUpdateFormState createState() => _MemberUpdateFormState();
 }
 
@@ -38,82 +40,118 @@ class _MemberUpdateFormState extends State<MemberUpdateForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Ubah Data Member")),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              _fieldNoMember(),
-              SizedBox(height: 20),
-              _fieldNamaMember(),
-              SizedBox(height: 20),
-              _fieldAlamat(),
-              SizedBox(height: 20),
-              _fieldEmail(),
-              SizedBox(height: 20),
-              _fieldNoTelp(),
-              SizedBox(height: 20),
-              _tombolSimpan()
-            ],
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/img/background.jpg"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: const Text("Ubah Data Member"),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue, Color.fromARGB(255, 0, 0, 0)],
+              ),
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                _buildTextField(
+                  labelText: "Nomer Member",
+                  controller: _noMemberCtrl,
+                ),
+                SizedBox(height: 20),
+                _buildTextField(
+                  labelText: "Nama Member",
+                  controller: _namaMemberCtrl,
+                ),
+                SizedBox(height: 20),
+                _buildTextField(
+                  labelText: "Alamat",
+                  controller: _alamatCtrl,
+                ),
+                SizedBox(height: 20),
+                _buildTextField(
+                  labelText: "Email",
+                  controller: _emailCtrl,
+                ),
+                SizedBox(height: 20),
+                _buildTextField(
+                  labelText: "Nomer Telp",
+                  controller: _noTelpCtrl,
+                ),
+                SizedBox(height: 20),
+                _buildSimpanButton(),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  _fieldNoMember() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Nomer Member"),
-      controller: _noMemberCtrl,
+  Widget _buildTextField(
+      {required String labelText, required TextEditingController controller}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        decoration: InputDecoration(
+          labelText: labelText,
+          labelStyle: const TextStyle(color: Colors.white),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          filled: true,
+          fillColor: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+        ),
+        controller: controller,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Mohon masukkan $labelText';
+          }
+          return null;
+        },
+        style: const TextStyle(color: Colors.white),
+      ),
     );
   }
 
-  _fieldNamaMember() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Nama Member"),
-      controller: _namaMemberCtrl,
-    );
-  }
-
-  _fieldAlamat() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Alamat"),
-      controller: _alamatCtrl,
-    );
-  }
-
-  _fieldEmail() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Email"),
-      controller: _emailCtrl,
-    );
-  }
-
-  _fieldNoTelp() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Nomer Telp"),
-      controller: _noTelpCtrl,
-    );
-  }
-
-  _tombolSimpan() {
+  Widget _buildSimpanButton() {
     return ElevatedButton(
-        onPressed: () async {
+      onPressed: () async {
+        if (_formKey.currentState!.validate()) {
           Member member = new Member(
-              noMember: _noMemberCtrl.text,
-              namaMember: _namaMemberCtrl.text,
-              alamat: _alamatCtrl.text,
-              email: _emailCtrl.text,
-              noTelp: _noTelpCtrl.text);
+            noMember: _noMemberCtrl.text,
+            namaMember: _namaMemberCtrl.text,
+            alamat: _alamatCtrl.text,
+            email: _emailCtrl.text,
+            noTelp: _noTelpCtrl.text,
+          );
           String id = widget.member.id.toString();
           await MemberService().ubah(member, id).then((value) {
             Navigator.pop(context);
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => MemberPage()));
+              context,
+              MaterialPageRoute(builder: (context) => MemberPage()),
+            );
           });
-        },
-        child: const Text("Simpan Perubahan"));
+        }
+      },
+      child: const Text("Simpan Perubahan"),
+    );
   }
 }
